@@ -513,7 +513,28 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.flex {
+  display: flex;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.content-center {
+  align-content: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
 .bg-green {
   --tw-bg-opacity: 1;
   background-color: rgb(50 88 61 / var(--tw-bg-opacity));
+}
+
+.text-green {
+  --tw-text-opacity: 1;
+  color: rgb(50 88 61 / var(--tw-text-opacity));
 }
