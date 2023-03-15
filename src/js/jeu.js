@@ -9,55 +9,67 @@
 // dans la fonction distanceRuche afficher dans une popup la distance calculée entre la postion de la ruche et celle du click
 
 
-var ColRuche = 5;
-var RowRuche = 2;
+//afficher des croix quand perdu
+//afficher ruche quand gagné et calculer le score = (temps max de la partie) - (temps écoulé depuis le début de la partie) et killer le timer
+//ajouter un temps max de la partie (settimeOut)
+//mesurer le temps + afficher (afficher score)
+//envoyer le temps sur le serv ajax
+//en cas de victoire: saisir ou confirmer son nom, le sauvegarder dans le cache du client et l'envoyer avec son score au serveur ajax
+//récuperer le classsment ajax et l'afficher
+
+//refaire une partie (restet timer, restet le score, reset le plateau de jeu)
+
+//créer dynamiquement un plateau en JS
+
+// trouver la balance nous permet d'afficher les coordonnées de la ruche 
+
+//col = $(this).parent().children().index($(this));
+var ruche = document.getElementById("ruche");
+var nbCol = 8;
+var nbRow = 7;
+var colRuche = Math.floor(Math.random()*nbCol);
+var rowRuche = Math.floor(Math.random()*nbRow);
 
 
 function distanceRuche (colClick , rowClick){
-    // alert( ColRuche )
-    colClick=colClick + 1
-    //alert ("colClick="+colClick);
-    //alert ("rowClick="+rowClick);
-    diffCol = Math.abs(ColRuche - colClick);
-    diffRow = Math.abs(RowRuche - rowClick);
-    //alert (diffCol);
-    //alert (diffRow);
-    var res = diffCol + diffRow
-    return "la distance entre la ruche et le click est de : " + res
-    
-
-    // var maPetiteVariable = 4;
-    // var maValAbs = Math.abs(maPetiteVariable);
-    // alert ("maPetiteVariable="+maPetiteVariable);
-    // alert ("maValAbs="+maValAbs);
+    diffCol = Math.abs(colRuche - colClick);
+    diffRow = Math.abs(rowRuche - rowClick);
+    var res = (diffCol + diffRow);
+    console.log("distance avec la ruche:" + res);
+    return "la distance entre la ruche et le click est de : " + res;
 }
-
-console.log(distanceRuche(10,2));
-
-//col = $(this).parent().children().index($(this));
-const ruche = document.getElementById("ruche");
 
 
 function myFunction(element) {
-  //alert("index col="+element.cellIndex+" et index row du parent="+element.parentNode.rowIndex );
+
   col = element.cellIndex;
   row = element.parentNode.rowIndex;
-  tab = [col, row]; // ex: [3, 6]
-  console.log("coordonnées du click : " + tab);
+  tab = [col, row];
+
+  console.log("distance ruche :" + distanceRuche(col,row));
+  console.log("colRuche = " + colRuche +" rowRuche = "+ rowRuche); 
+  console.log("coordonnées du click = " + tab);
+
+  if(col == colRuche && row == rowRuche){
+    alert('gagné');
+  }else {
+    alert('croix');
+  }
   return tab;
 }
 
-
-function m2(toto) {
-  alert("index ligne="+toto.rowIndex);
+function changeImage(img) {
+  document.getElementById("img").src = img.src.replace("_t", "_b");
 }
 
-function clickruche (ruche) {
-    alert("youwin")
-    appear()
+function showHive(image) {
+  console.log("je montre la ruche");
+  ruche.classList.remove('opacity-0');
+  ruche.classList.add('opacity-100');
 }
 
-function appear() {
-    ruche.classList.add('appear');
-    ruche.classList.remove('ruche');
+function showCross() {
+  console.log("je mets une croix");
+  ruche.classList.remove('opacity-0');
+  ruche.classList.add('opacity-100');
 }
