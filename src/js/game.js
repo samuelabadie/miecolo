@@ -17,6 +17,7 @@
 //en cas de victoire: saisir ou confirmer son nom, le sauvegarder dans le cache du client et l'envoyer avec son score au serveur ajax
 //récuperer le classsment ajax et l'afficher
 //eviter les espaces dans les champs
+//créer du html avec JS (les arbres)
 
 //refaire une partie (restet timer, restet le score, reset le plateau de jeu)
 
@@ -34,7 +35,7 @@ var win = false;
 
 var userEmail;
 var userPseudo;
-var score = 0;
+var score = 3000;
 
 function distanceRuche (colClick , rowClick){
 
@@ -45,6 +46,42 @@ function distanceRuche (colClick , rowClick){
   return res;
 
 }
+
+// Set the target time for the timer
+var targetTime = new Date().getTime() + (1 * 30 * 1000); // 5 minutes from now
+
+// Define a function to update the timer display
+function updateTimerDisplay() {
+    // Get the current time
+  
+    var currentTime = new Date().getTime();
+
+    // Calculate the remaining time in milliseconds
+    var remainingTime = targetTime - currentTime;
+
+    // Calculate the remaining minutes and seconds
+    var remainingMinutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+    var remainingSeconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+    // Display the remaining time in the timer display element
+    var timer = document.getElementById("timer");
+    //timer.innerHTML = remainingMinutes + ":" + remainingSeconds;
+
+    console.log(remainingMinutes + ":" + remainingSeconds);
+    console.log(score);
+
+    // Call the updateTimerDisplay function again after 1 second
+    if (remainingTime > 0) {
+        setTimeout(updateTimerDisplay, 1000);
+        score = score - 100;
+    } else {
+        alert("Time's up!");
+    }
+}
+
+// Call the updateTimerDisplay function for the first time
+updateTimerDisplay();
+
 
 function clickCheck(element) {
 
@@ -63,7 +100,8 @@ function clickCheck(element) {
     console.log(win);
     alert('gagné');
   }else {
-    //alert('croix');
+    score = score - 142;
+    alert('croix');
     //mettre une croix à la place du buisson 
   }
 
@@ -98,7 +136,7 @@ function sendDataToServer(data){
     var pseudo = data.pseudo;
     var score = data.score;
     console.log("data=" + email);
-    url = "http://localhost:2000/pages/classement.php?email="+email+"&pseudo="+pseudo+"&score="+score;
+    url = "http://localhost:2000/pages/database.php?email="+email+"&pseudo="+pseudo+"&score="+score;
     console.log("url =", url);
     fetch(url)
     .then((response) => response.json())
