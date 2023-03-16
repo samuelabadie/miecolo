@@ -16,6 +16,7 @@
 //envoyer le temps sur le serv ajax
 //en cas de victoire: saisir ou confirmer son nom, le sauvegarder dans le cache du client et l'envoyer avec son score au serveur ajax
 //récuperer le classsment ajax et l'afficher
+//eviter les espaces dans les champs
 
 //refaire une partie (restet timer, restet le score, reset le plateau de jeu)
 
@@ -24,52 +25,89 @@
 // trouver la balance nous permet d'afficher les coordonnées de la ruche 
 
 //col = $(this).parent().children().index($(this));
-var ruche = document.getElementById("ruche");
+
 var nbCol = 8;
 var nbRow = 7;
 var colRuche = Math.floor(Math.random()*nbCol);
 var rowRuche = Math.floor(Math.random()*nbRow);
+var win = false;
 
+var userEmail;
+var userPseudo;
+var score = 0;
 
 function distanceRuche (colClick , rowClick){
-    diffCol = Math.abs(colRuche - colClick);
-    diffRow = Math.abs(rowRuche - rowClick);
-    var res = (diffCol + diffRow);
-    console.log("distance avec la ruche:" + res);
-    return "la distance entre la ruche et le click est de : " + res;
+
+  diffCol = Math.abs(colRuche - colClick);
+  diffRow = Math.abs(rowRuche - rowClick);
+  var res = (diffCol + diffRow);
+  console.log("distance avec la ruche: " + res);
+  return res;
+
 }
 
+function clickCheck(element) {
 
-function myFunction(element) {
+  var distance = document.getElementById("distance-ruche");
 
   col = element.cellIndex;
   row = element.parentNode.rowIndex;
-  tab = [col, row];
+  distance.innerHTML = distanceRuche(col, row);
 
-  console.log("distance ruche :" + distanceRuche(col,row));
   console.log("colRuche = " + colRuche +" rowRuche = "+ rowRuche); 
-  console.log("coordonnées du click = " + tab);
+  console.log("coordonnées du click : col = " + col + " row = " + row);
 
   if(col == colRuche && row == rowRuche){
+    //remplacer la source de l'image par celle de la ruche
+    win = true;
+    console.log(win);
     alert('gagné');
   }else {
-    alert('croix');
+    //alert('croix');
+    //mettre une croix à la place du buisson 
   }
-  return tab;
+
 }
 
-function changeImage(img) {
-  document.getElementById("img").src = img.src.replace("_t", "_b");
+function saveUserData(){
+  userEmail = document.getElementById("input-email").value; 
+  userPseudo = document.getElementById("input-pseudo").value;
+
+  setLocalStorage(userEmail,userPseudo,score);
+
+  var exportStorage = localStorage.getItem("userData");
+  storageData = JSON.parse(exportStorage);
+
+  sendDataToServer(storageData);
 }
 
-function showHive(image) {
-  console.log("je montre la ruche");
-  ruche.classList.remove('opacity-0');
-  ruche.classList.add('opacity-100');
+function setLocalStorage(email, pseudo, score){
+  var data = {
+    email: email,
+    pseudo: pseudo,
+    score: score
+  }
+  var jsonData = JSON.stringify(data);
+  localStorage.setItem("userData", jsonData);
 }
 
-function showCross() {
-  console.log("je mets une croix");
-  ruche.classList.remove('opacity-0');
-  ruche.classList.add('opacity-100');
-}
+
+function sendDataToServer(data){
+  // readJSON = data => {
+    var email = data.email;
+    var pseudo = data.pseudo;
+    var score = data.score;
+    console.log("data=" + email);
+    url = "http://localhost:2000/pages/classement.php?email="+email+"&pseudo="+pseudo+"&score="+score;
+    console.log("url =", url);
+    fetch(url)
+    .then((response) => response.json())
+    .then((d) => readJSON(d))
+    .catch((error) => console.error(error));
+  }
+  
+
+
+
+
+
