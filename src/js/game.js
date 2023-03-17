@@ -171,14 +171,16 @@ function setLocalStorage(email, pseudo, score){
   localStorage.setItem("userData", jsonData);
 }
 
+function readJSON(data){
+  // readJSON = data => {
+    // get values of (key) idbalise
+    console.log("data=", data); // [Object,Object,Object]
+    console.log("first idbalise=" + data[0]['email']); // 83
+    console.log("first idbalise=" + data[0].email); // 83
+  }
 
 function sendDataToServer(data){
-  // readJSON = data => {
-  var email = data.email;
-  var pseudo = data.pseudo;
-  var score = data.score;
-  console.log("data=" + email);
-  url = "http://localhost:2000/pages/database.php?email="+email+"&pseudo="+pseudo+"&score="+score;
+  url = "http://localhost:2000/pages/database.php?email="+data.email+"&pseudo="+data.pseudo+"&score="+data.score;
   console.log("url =", url);
   fetch(url)
   .then((response) => response.json())

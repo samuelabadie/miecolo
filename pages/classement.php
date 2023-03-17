@@ -7,14 +7,13 @@ try {
   $db = new PDO('mysql:host=localhost;dbname=miecolo_db;charset=utf8', 'root', 'root');
 
 
-  //à faire
   $request = "SELECT pseudo, score FROM classement ORDER BY score DESC";
   $stmt = $db->query($request);
 
   $started = false;
   $json_str = '{ scoreboard : [';
   while ($row = $stmt->fetch()) {
-    if ($started = true)
+    if ($started == true)
     {
       $json_str .= ",";
     }else
@@ -22,7 +21,7 @@ try {
       $started = true;
     }
     $json_str .= '{"pseudo" : ';
-    $json_str .= "".$row['pseudo'].", ";
+    $json_str .= "'".$row['pseudo']."', ";
 
     $json_str .= '"score" : ';
     $json_str .= "".$row['score']."} ";
@@ -37,3 +36,5 @@ try {
 }
 
 ?>
+
+
