@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,20 +8,19 @@
     <title>navbar</title>
 </head>
 <body>
-    <nav class="bg-green mx-auto flex w-11/12 justify-between rounded-b-lg py-4 px-4">
+    <nav class="bg-green mx-auto sticky top-0 flex w-11/12 justify-between rounded-b-lg py-4 px-4">
         <ul class="flex gap-x-4 px-4 text-sm font-bold text-white">
-            <li><a href="#">Produit</a></li>
-            <li><a href="#">Forum</a></li>
-            <li><a href="#">À propos</a></li>
-            <li><a href="#">Contact</a></li>
+            <li class="hover:underline"><a href="/pages/produit.html">Produit</a></li>
+            <li class="hover:underline"><a href="#">Forum</a></li>
+            <li class="hover:underline"><a href="#">À propos</a></li>
+            <li class="hover:underline"><a href="#">Contact</a></li>
         </ul>
-        <img class="" src="/assets/logo.svg"></div>
+        <img class="cursor-pointer px-4" src="/assets/logo.svg"></div>
         <ul class="flex gap-x-4 px-4 text-sm font-bold text-white">
           <li class="hover:underline"><a href="#">Mon compte</a></li>
           <li class="hover:underline"><a href="#">Panier</a></li>
-          <li>FR</li>
+          <li class="hover:font-black cursor-pointer">FR</li>
         </ul>
       </nav>      
 </body>
 </html>
-
