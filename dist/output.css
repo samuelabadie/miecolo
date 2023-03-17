@@ -525,6 +525,10 @@ video {
   position: relative;
 }
 
+.sticky {
+  position: sticky;
+}
+
 .bottom-0 {
   bottom: 0px;
 }
@@ -736,6 +740,10 @@ video {
 .translate-y-full {
   --tw-translate-y: 100%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 .flex-col {
@@ -1264,6 +1272,10 @@ video {
 .hover\:bg-white:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(250 243 230 / var(--tw-bg-opacity));
+}
+
+.hover\:font-black:hover {
+  font-weight: 900;
 }
 
 .hover\:text-green:hover {

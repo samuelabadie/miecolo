@@ -157,6 +157,8 @@ function saveUserData(){
   
   var exportStorage = localStorage.getItem("userData");
   storageData = JSON.parse(exportStorage);
+
+  reloadGame();
   
   sendDataToServer(storageData);
 }
