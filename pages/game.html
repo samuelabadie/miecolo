@@ -9,13 +9,12 @@
   <title>Jeu Miecolo</title>
 </head>
 <body>
-<section class="w-screen h-screen flex flex-col justify-center items-center bg-white">
-  <h1 class="text-6xl font-bold">Embuche à la ruche</h1>
-  <div class="w-8/12 mt-24 bg-blue-300 flex justify-between p-10 rounded-2xl">
-    <div>
-      <div>Vous êtes à <span id="distance-ruche"></span> buissons de la ruche</div>
-      <div>Score = <span id="score"></span></div>
-      <div>Timer :<span id="timer"></span></div>
+<section class="relative w-screen h-screen flex flex-col justify-center items-center bg-white">
+  <h1 class="text-6xl font-bold mb-6">Embuche à la ruche</h1>
+  <div>Timer :<span id="timer"></span></div>
+  <div class="w-6/12 mt-24 border-2 border-green flex justify-between p-10 rounded-2xl">
+    <div class="h-full flex flex-col justify-center">
+      <div class="opacity-0 font-bold text-2xl text-slate-800 transition-all duration-300" id="distance">Vous êtes à <span class="text-3xl underline" id="distance-ruche"></span> buissons de la ruche</div>
     </div>
     <table>
       <tr>
@@ -91,13 +90,28 @@
     </table>
   </div>
 
-  <div class="flex flex-col mt-10" id="win-input">
-    <label for="pseudo">Pseudo :</label>
-    <input class="px-2 py-1" type="text" id="input-pseudo" name="pseudo" placeholder="Pseudo" value="jp">
-    <label for=email">Email :</label>
-    <input class="px-2 py-1 mt-2" type="text" id="input-email" name="email" placeholder="Email" value="coucou@gmail.com">
-    <button class="mt-4 bg-slate-200 p-3 rounded-full" type="button" onclick="saveUserData()">Valider</button>
+  <div class="translate-y-full flex flex-col absolute opacity-0 transition-all duration-300 mt-8 rounded-2xl px-24 py-8 bg-slate-200" id="win-input">
+    <strong class="text-center text-5xl font-bold mb-2 text-yellow">Victoire !</strong>
+    <strong class="text-center text-md mb-6">Enregistrez votre score</strong>
+    <label class="text-gray-700 text-sm font-bold mb-2" for="pseudo">Pseudo :</label>
+    <input class="px-2 py-1 mb-6 rounded-md" type="text" id="input-pseudo" name="pseudo" placeholder="Pseudo">
+    <label class="text-gray-700 text-sm font-bold mb-2" for=email">Email :</label>
+    <input class="px-2 py-1 rounded-md" type="text" id="input-email" name="email" placeholder="Email">
+    <button class="mt-6 bg-yellow py-3 px-4 rounded-full font-bold uppercase" type="button" onclick="saveUserData()">Valider</button>
   </div>
+
+  <div class="bottom-0 flex flex-col absolute opacity-0 transition-all duration-300 mt-8 rounded-2xl px-24 py-8 bg-red-300" id="lose">
+    <strong class="text-center text-3xl font-bold mb-2 text-slate-800">Perdu !</strong>
+    <strong class="text-center text-md mb-6 text-slate-800">Vous pouvez toujours rejouer :)</strong>
+  </div>
+
+  <div class="mt-12 opacity-0 transition-all duration-200" id="reload-button">
+    <button type="buttun" class="bg-blue-300 py-3 px-6 rounded-full font-bold uppercase" onclick="reloadGame()">rejouer</button>
+  </div>
+
+  <table id="my-table">
+
+  </table>
 
   
 </section>

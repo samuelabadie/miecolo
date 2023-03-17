@@ -32,90 +32,132 @@ var nbRow = 7;
 var colRuche = Math.floor(Math.random()*nbCol);
 var rowRuche = Math.floor(Math.random()*nbRow);
 var win = false;
+var playing = true;
 
 var userEmail;
 var userPseudo;
 var score = 3000;
 
 function distanceRuche (colClick , rowClick){
-
+  
   diffCol = Math.abs(colRuche - colClick);
   diffRow = Math.abs(rowRuche - rowClick);
   var res = (diffCol + diffRow);
   console.log("distance avec la ruche: " + res);
   return res;
-
+  
 }
 
 // Set the target time for the timer
 var targetTime = new Date().getTime() + (1 * 30 * 1000); // 5 minutes from now
 
-// Define a function to update the timer display
-function updateTimerDisplay() {
-    // Get the current time
-  
-    var currentTime = new Date().getTime();
 
-    // Calculate the remaining time in milliseconds
-    var remainingTime = targetTime - currentTime;
+function reloadGame(){
+  location.reload();
 
-    // Calculate the remaining minutes and seconds
-    var remainingMinutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-    var remainingSeconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
-
-    // Display the remaining time in the timer display element
-    var timer = document.getElementById("timer");
-    //timer.innerHTML = remainingMinutes + ":" + remainingSeconds;
-
-    console.log(remainingMinutes + ":" + remainingSeconds);
-    console.log(score);
-
-    // Call the updateTimerDisplay function again after 1 second
-    if (remainingTime > 0) {
-        setTimeout(updateTimerDisplay, 1000);
-        score = score - 100;
-    } else {
-        alert("Time's up!");
-    }
+  var loseScreen = document.getElementById("lose");
+  loseScreen.classList.add("translate-y-full");
+  loseScreen.classList.add("opacity-0");  
+  loseScreen.classList.remove("opacity-100");
 }
 
-// Call the updateTimerDisplay function for the first time
-updateTimerDisplay();
-
-
-function clickCheck(element) {
-
-  var distance = document.getElementById("distance-ruche");
-
-  col = element.cellIndex;
-  row = element.parentNode.rowIndex;
-  distance.innerHTML = distanceRuche(col, row);
-
-  console.log("colRuche = " + colRuche +" rowRuche = "+ rowRuche); 
-  console.log("coordonnées du click : col = " + col + " row = " + row);
-
-  if(col == colRuche && row == rowRuche){
-    //remplacer la source de l'image par celle de la ruche
-    win = true;
-    console.log(win);
-    alert('gagné');
+function updateTimerDisplay() {
+  
+  var currentTime = new Date().getTime();
+  var remainingTime = targetTime - currentTime;
+  var remainingMinutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+  var remainingSeconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+  
+  var timer = document.getElementById("timer");
+  //timer.innerHTML = remainingMinutes + ":" + remainingSeconds;
+  
+  console.log(remainingMinutes + ":" + remainingSeconds);
+  console.log(score);
+  
+  if(score <= 0){
+    endGame(); 
+  }
+  
+  // appel toutes les secondes
+  if (remainingTime > 0 && playing == true) {
+    setTimeout(updateTimerDisplay, 1000);
+    score = score - 100;
   }else {
-    score = score - 142;
-    alert('croix');
-    //mettre une croix à la place du buisson 
+    endGame();
   }
 
 }
 
+// Call the updateTimerDisplay function for the first time
+if (playing = true){
+  updateTimerDisplay();
+}
+
+function endGame(){
+  playing = false;
+  console.log("partie finie");
+  var loseScreen = document.getElementById("lose");
+  var winInput = document.getElementById("win-input");
+  var reloadBtn = document.getElementById("reload-button");
+  
+  loseScreen.classList.remove("bottom-0");
+  loseScreen.classList.remove("opacity-0");  
+  loseScreen.classList.add("opacity-100");
+
+  winInput.classList.remove("translate-y-full");
+  winInput.classList.add("-translate-y-full");
+
+  reloadBtn.classList.remove("opacity-0");
+  reloadBtn.classList.add("opacity-100");
+}
+
+
+
+
+function clickCheck(element) {
+  
+  var distance = document.getElementById("distance-ruche");
+  var dist = document.getElementById("distance");
+
+  dist.classList.add("opacity-100");
+  
+  col = element.cellIndex;
+  row = element.parentNode.rowIndex;
+  distance.innerHTML = distanceRuche(col, row);
+  
+  console.log("colRuche = " + colRuche +" rowRuche = "+ rowRuche); 
+  console.log("coordonnées du click : col = " + col + " row = " + row);
+  
+  if(col == colRuche && row == rowRuche){
+    //remplacer la source de l'image par celle de la ruche
+    win = true;
+    console.log(win);
+    console.log("la vache qui rieeeee");
+
+    var winInput = document.getElementById("win-input");
+    //lose.classList.add("top-0");
+
+    winInput.classList.remove("translate-y-full");
+    winInput.classList.remove("opacity-0");  
+    winInput.classList.add("opacity-100");
+
+  }else {
+    score = score - 142;
+    //mettre une croix à la place du buisson 
+  }
+  
+}
+
+
 function saveUserData(){
   userEmail = document.getElementById("input-email").value; 
   userPseudo = document.getElementById("input-pseudo").value;
-
+  
   setLocalStorage(userEmail,userPseudo,score);
-
+  
   var exportStorage = localStorage.getItem("userData");
   storageData = JSON.parse(exportStorage);
-
+  
   sendDataToServer(storageData);
 }
 
@@ -132,18 +174,19 @@ function setLocalStorage(email, pseudo, score){
 
 function sendDataToServer(data){
   // readJSON = data => {
-    var email = data.email;
-    var pseudo = data.pseudo;
-    var score = data.score;
-    console.log("data=" + email);
-    url = "http://localhost:2000/pages/database.php?email="+email+"&pseudo="+pseudo+"&score="+score;
-    console.log("url =", url);
-    fetch(url)
-    .then((response) => response.json())
-    .then((d) => readJSON(d))
-    .catch((error) => console.error(error));
-  }
-  
+  var email = data.email;
+  var pseudo = data.pseudo;
+  var score = data.score;
+  console.log("data=" + email);
+  url = "http://localhost:2000/pages/database.php?email="+email+"&pseudo="+pseudo+"&score="+score;
+  console.log("url =", url);
+  fetch(url)
+  .then((response) => response.json())
+  .then((d) => readJSON(d))
+  .catch((error) => console.error(error));
+}
+
+
 
 
 
