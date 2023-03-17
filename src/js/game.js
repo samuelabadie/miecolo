@@ -82,7 +82,7 @@ function updateTimerDisplay() {
   if (remainingTime > 0 && playing == true) {
     setTimeout(updateTimerDisplay, 1000);
     score = score - 100;
-  }else {
+  }else if (win = true){
     endGame();
   }
 
