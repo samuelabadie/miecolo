@@ -14,7 +14,7 @@ try {
   $started = false;
   $json_str = '{ scoreboard : [';
   while ($row = $stmt->fetch()) {
-    if ($started = true)
+    if ($started == true)
     {
       $json_str .= ",";
     }else

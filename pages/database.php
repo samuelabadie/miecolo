@@ -19,11 +19,11 @@ try {
   
   $found = false;
   $stmt = $db->query($classmentRequest);
-  while ($row = $stmt->fetch()) {
-    echo $row['email']."    \n";
-    echo $row['pseudo']."    \n";
-    echo $row['score']."<br>   \n";
-  }
+  // while ($row = $stmt->fetch()) {
+  //   echo $row['email']."    \n";
+  //   echo $row['pseudo']."    \n";
+  //   echo $row['score']."<br>   \n";
+  // }
 
   $stmt = $db->query($emailRequest);
   $userData = $stmt->fetch();
@@ -31,7 +31,6 @@ try {
   
   // si le score de l'utilisateur est supérieur à celui dans la base alors MAJ du score
   if ($stmt->rowCount() == 1 && $previewScore < $score){
-    echo("<br>ça fonctionne <br>");
     $updateRequest = "UPDATE classement SET score = REPLACE(score, ".$previewScore.", ".$score.") WHERE email = '".$email."'";
     $stmt = $db->query($updateRequest);
 
@@ -42,6 +41,31 @@ try {
   }
   //ajouter des valeurs en base de données
 
+
+
+  //RETOURNE LE CLASSEMENT EN JSON
+  $request = "SELECT pseudo, score FROM classement ORDER BY score DESC";
+  $stmt = $db->query($request);
+
+  $started = false;
+  $json_str = '{ scoreboard : [';
+  while ($row = $stmt->fetch()) {
+    if ($started == true)
+    {
+      $json_str .= ",";
+    }else
+    {
+      $started = true;
+    }
+    $json_str .= '{"pseudo" : ';
+    $json_str .= "'".$row['pseudo']."', ";
+
+    $json_str .= '"score" : ';
+    $json_str .= "".$row['score']."} ";
+  }
+  $json_str .= "] }";
+  
+  echo $json_str;
 
 } catch (Exception $e) {
   die('Erreur : ' . $e->getMessage());
