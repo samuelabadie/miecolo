@@ -18,10 +18,12 @@ module.exports = {
 
       width: {
         'miel' : '450px',
+        'imgaccueil' : '500px'
       },
 
       height: {
         'miel': '450px',
+        'imgaccueil' : '500px'
       },
 
       borderRadius: {

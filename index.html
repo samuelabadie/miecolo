@@ -7,8 +7,31 @@
   <link rel="stylesheet" href="/dist/output.css">
   <title>Document</title>
 </head>
+
+
 <body>
-  <div class="flex items-center rounded-[25px] bg-[#FAF3E6] p-8 h-screen w-screen">
+
+  <header>
+    <nav class="bg-white">
+      <nav class="bg-green mx-auto flex w-11/12 justify-between rounded-b-lg py-4 px-4">
+        <ul class="flex gap-x-4 px-4 text-sm font-bold text-white">
+            <li><a href="#">Produit</a></li>
+            <li><a href="#">Forum</a></li>
+            <li><a href="#">À propos</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <img class="" src="/assets/logo.svg"></div>
+        <ul class="flex gap-x-4 px-4 text-sm font-bold text-white">
+          <li class="hover:underline"><a href="#">Mon compte</a></li>
+          <li class="hover:underline"><a href="#">Panier</a></li>
+          <li>FR</li>
+        </ul>
+      </nav>
+    </nav>      
+  </header>
+
+
+  <div class="flex items-center  bg-[#FAF3E6] p-8 h-screen">
     <div class="w-1/2 p-10 pl-20">
       <div class="mb-20 flex flex-col gap-y-4 text-7xl font-bold text-[#32583D] ">Le plaisir de la ruche, sans les embuches...</div>
       <div class="text-[#32583D] text-xl">Le plus compliqué sera de trouver quelques mètres carrés ! Notre balance connectée et tous nos conseils vous accompagnent à chaque étape de votre nouvelle aventure : l’apiculture de loisir.</div>
@@ -23,12 +46,12 @@
       </div>
     </div>
   
-    <div class="w-1/2 h-2/5 flex justify-center">
-      <div class="mr-6 h-full w-10/12 rounded-[25px] bg-red-300"></div>
+    <div class="w-imgaccueil h-imgaccueil flex items-center">
+      <img class="h-full w-full" src="/assets/svgs/balanceconnecteproduitaccueil.svg">
     </div>
   </div>
   
-  <div class="flex w-full items-center justify-center rounded-[25px] bg-[#FAF3E6] h-screen  ">
+  <div class="flex items-center justify-center bg-[#FAF3E6] h-screen pb-12">
     <div class="flex flex-col">
       <div class="my-20 text-center text-5xl font-bold text-[#32583D]">
         Miecolo, l’apiculture devient <br />
@@ -42,10 +65,12 @@
   </div> 
   </div>
   
-  <div class="flex items-center rounded-[25px] bg-[#32583D] p-8 h-screen w-screen ">
+
+  <div class="bg-white">
+  <div class="flex items-center bg-green p-8 h-screen rounded-t-lg pl-20">
   
     <div class=" w-1/2 h-2/5 flex justify-center">
-      <div class=" mr-6 h-full w-10/12 rounded-[25px] bg-red-300"></div>
+      <div class=" mr-6 h-full w-10/12 bg-red-300"></div>
     </div>
   
     <div class="flex w-1/2 flex-col justify-center gap-y-4 text-white pr-14">
@@ -61,8 +86,9 @@
       
     </div>
   </div>
+  </div>
   
-  <div class="flex w-screen flex-col items-center justify-center bg-[#FAF3E6] h-screen p-8 text-[#32583D]">
+  <div class="flex flex-col items-center justify-center bg-[#FAF3E6] h-screen p-8 text-[#32583D]">
     <div class="my-8 mx-28 w-auto "><p class="text-5xl font-bold ">Des témoignages et des retours d'expérience des clients peuvent être très utiles pour vous aider à bourdonner d’impatience afin de démarrer l’apiculture avec Miecolo.</p></div>
     <div class="my-8 mx-20 flex gap-x-10">
       <div class="box-border min-w-min max-w-lg rounded-3xl bg-[#F2EDD4] px-8 py-4">
@@ -106,7 +132,7 @@
     </div>
   </div>
   
-  <div class="flex w-screen flex-col items-center justify-center bg-[#FAF3E6] h-screen">
+  <div class="flex flex-col items-center justify-center bg-[#FAF3E6] h-screen">
     <div class="text-[#32583D]">
       <div class="bg-[#FAF3E6] p-4 ">
         <div class="bg-[#F8D769] px-96  m-8 rounded-[25px] py-24  flex justify-center">
@@ -121,6 +147,62 @@
       </div>
     </div>
   </div>
+
+<footer class="bg-white">
+  <div class=" bg-green text-white rounded-t-lg">
+    <div class="divide-y divide-solid divide-light-green">
+      <div class="mx-8 flex-col gap-y-10 items-center flex md:flex-row pt-20 pb-20">
+        <div class="basis-1/2">
+          <h1 class="text-4xl text-center md:text-left md:text-8xl font-extrabold pb-4">Miecolo</h1>
+          <p class="text-xs font-extralight pb-2">Abonnez-vous à toutes les mises à jour savoureuses</p>
+          <label class="block border-solid border-white rounded-lg border-2 max-w-xs">
+            <input type="email" placeholder="Entrez votre email" class=" rounded-l pl-1" />
+            <button type="submit" class="text-left flex-justify-center">S'abonner</button>
+          </label>
+        </div>
+        <div class="basis-4/12 text-4xl font-bold flex justify-start">Le plaisir de la ruche <br />sans les embuches !</div>
+        <div class="basis-2/12 font-extralight">
+          <ul class="flex-col text-center md:text-left">
+            <li class="hover:underline"><ahref="#">Accueil</a></li>
+            <li class="hover:underline"><a href="#">Produit</a></li>
+            <li class="hover:underline"><a href="#">Mon compte</a></li>
+            <li class="hover:underline"><a href="#">Panier</a></li>
+            <li class="hover:underline"><a href="#">Forum</a></li>
+            <li class="hover:underline"><a href="#">À propos</a></li>
+            <li class="hover:underline"><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex-col mx-8 flex gap-y-10 text-center md:flex-row md:text-left pt-10 ">
+        <div class="basis-1/2">
+          <h2 class="text-2xl">Logo</h2>
+        </div>
+        <div class="basis-4/12 font-extralight text-xs flex justify-start flex-col text-light-green">
+          <p>2 rue Marc Sangnier<br>33130 Bègles,<br>France</p>
+          <p class="pt-1 hover:underline">+33 6 67 07 11 05</p> 
+        </div>
+        <div class="basis-2/12 font-extralight text-xs">
+          <ul class="flex-col text-light-green">
+              <li class="hover:underline"><ahref="#">Politique de confidentialité</a></li>
+              <li class="hover:underline"><a href="#">Conditions d'utilisations</a></li>
+              <li class="hover:underline"><a href="#">Mentions légales</a></li>
+              <li class="hover:underline"><a href="#">Politique de remboursement</a></li>
+              <li class="hover:underline"><a href="#">CGV</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  <div class="flex-col mx-8 flex md:flex-row md:text-left text-center pt-10 pb-20">
+    <div class="basis-1/2">
+    </div>
+    <div class="basis-4/12">
+    </div>
+    <div class="basis-2/12 font-extralight text-xs text-light-green">
+      <p>© 2023, Miecolo<br>Tous droits réservés</p>
+    </div>
+  </div>
+  </div> 
+</footer>                 
   
 </body>
 </html>
