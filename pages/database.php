@@ -1,5 +1,6 @@
 <?php
 
+
 // http://localhost:2000/pages/classement.php?email=oui@gmail.com&pseudo=yessir&score=33
 // http://localhost:2000/pages/classement.php?email=coucou@gmail.com&pseudo=yessir&score=33
 
@@ -47,8 +48,11 @@ try {
   $request = "SELECT pseudo, score FROM classement ORDER BY score DESC";
   $stmt = $db->query($request);
 
+  header("Content-Type: application/json");
+
+  // sortie formatée en json à la main
   $started = false;
-  $json_str = '{ scoreboard : [';
+  $json_str = '[';
   while ($row = $stmt->fetch()) {
     if ($started == true)
     {
@@ -57,20 +61,21 @@ try {
     {
       $started = true;
     }
-    $json_str .= '{"pseudo" : ';
-    $json_str .= "'".$row['pseudo']."', ";
+    $json_str .= '{"pseudo":';
+    $json_str .= "\"".$row['pseudo']."\",";
 
-    $json_str .= '"score" : ';
-    $json_str .= "".$row['score']."} ";
+    $json_str .= '"score":';
+    $json_str .= "\"".$row['score']."\"}";
   }
-  $json_str .= "] }";
-  
+  $json_str .= "]";
   echo $json_str;
+
+  // ou
+  // echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
 
 } catch (Exception $e) {
   die('Erreur : ' . $e->getMessage());
 }
-
 
 
 // if ($row['email'] == $email){ //le mail existe en base ?

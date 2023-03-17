@@ -90,7 +90,7 @@ function updateTimerDisplay() {
 
 // Call the updateTimerDisplay function for the first time
 if (playing = true){
-  updateTimerDisplay();
+  //updateTimerDisplay();
 }
 
 function endGame(){
@@ -124,11 +124,10 @@ function clickCheck(element) {
   col = element.cellIndex;
   row = element.parentNode.rowIndex;
   distance.innerHTML = distanceRuche(col, row);
-  
   console.log("colRuche = " + colRuche +" rowRuche = "+ rowRuche); 
   console.log("coordonnées du click : col = " + col + " row = " + row);
   
-  if(col == colRuche && row == rowRuche){
+  if(1 || col == colRuche && row == rowRuche){ //JP
     //remplacer la source de l'image par celle de la ruche
     win = true;
     console.log(win);
@@ -145,11 +144,25 @@ function clickCheck(element) {
     score = score - 142;
     //mettre une croix à la place du buisson 
   }
-  
+
 }
 
-
 function saveUserData(){
+  let monPara = document.createElement("p");
+  monPara.innerHTML = "Jp is the best ?";
+  monPara.onclick = () => alert('no no no Samuel is the best');
+  let maDiv = document.getElementById("divJPS");
+  maDiv.appendChild(monPara);
+
+  let monImg = document.createElement("img");
+  monImg.src ="../assets/svgs/bush.svg";
+  monImg.onclick = () => alert('yes he is');
+  maDiv.appendChild(monImg);
+
+  
+
+
+
   userEmail = document.getElementById("input-email").value; 
   userPseudo = document.getElementById("input-pseudo").value;
   
@@ -158,7 +171,7 @@ function saveUserData(){
   var exportStorage = localStorage.getItem("userData");
   storageData = JSON.parse(exportStorage);
 
-  reloadGame();
+  //reloadGame(); JP
   
   sendDataToServer(storageData);
 }
@@ -176,11 +189,13 @@ function setLocalStorage(email, pseudo, score){
 function readJSON(data){
   // readJSON = data => {
     // get values of (key) idbalise
-    console.log("data=", data); // [Object,Object,Object]
-    console.log("first idbalise=" + data[0]['email']); // 83
-    console.log("first idbalise=" + data[0].email); // 83
+    var codeTab = "<table>";
+    data.forEach(element => {
+      codeTab = codeTab+"<tr><td>"+(element.pseudo)+"</td><td>"+(element.score)+"</td></tr>";
+    });
+    codeTab = codeTab+"</table>";
+    document.getElementById("divJP").innerHTML = codeTab;
   }
-
 function sendDataToServer(data){
   url = "http://localhost:2000/pages/database.php?email="+data.email+"&pseudo="+data.pseudo+"&score="+data.score;
   console.log("url =", url);
